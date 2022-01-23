@@ -1,2 +1,2 @@
-access_key = "Change_ME"
-secret_key = "Change_ME"
+access_key = "${access_key}"
+secret_key = "${secret_key}"
