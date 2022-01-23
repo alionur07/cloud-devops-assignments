@@ -1,2 +1,2 @@
-access_key = "#{ACCESS_KEY}#"
-secret_key = "#{SECRET_KEY}#"
+access_key = "__ACCESS_KEY__"
+secret_key = "__SECRET_KEY__"
