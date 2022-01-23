@@ -5,11 +5,9 @@ variable "region" {
 
 variable "access_key" {
   description = "access_key of aws account"
-  default = __ACCESS_KEY__
 }
 variable "secret_key" {
   description = "secret of aws account"
-  default = __SECRET_KEY__
 }
 
 variable "name" {
