@@ -1,6 +1,6 @@
 apiVersion: v2
 name: contoso-app
-description: contoso-app application
+description: contoso-app  application
 
 # A chart can be either an 'application' or a 'library' chart.
 #
