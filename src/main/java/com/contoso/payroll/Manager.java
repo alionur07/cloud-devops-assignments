@@ -2,7 +2,7 @@ package com.contoso.payroll;
 
 import java.util.Arrays;
 import java.util.Objects;
-import javax.persistence.Table;
+//import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="manager")
+//@Table(name="manager")
 
 public class Manager {
 
