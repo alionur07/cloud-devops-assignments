@@ -1,6 +1,6 @@
 apiVersion: v2
 name: app
-description: app  application
+description: app application
 
 # A chart can be either an 'application' or a 'library' chart.
 #
