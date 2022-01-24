@@ -2,14 +2,14 @@
 appVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "app.fullname" . }}
+  name: {{ include "contoso-app.fullname" . }}
   labels:
-    {{- include "app.labels" . | nindent 4 }}
+    {{- include "contoso-app.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     appVersion: apps/v1
     kind: Deployment
-    name: {{ include "app.fullname" . }}
+    name: {{ include "contoso-app.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

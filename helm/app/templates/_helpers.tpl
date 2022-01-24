@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "app.name" -}}
+{{- define "contoso-app.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "app.fullname" -}}
+{{- define "contoso-app.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -27,20 +27,20 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "app.chart" -}}
+{{- define "contoso-app.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "app.labels" -}}
-helm.sh/chart: {{ include "app.chart" . }}
-{{ include "app.selectorLabels" . }}
+{{- define "contoso-app.labels" -}}
+helm.sh/chart: {{ include "contoso-app.chart" . }}
+{{ include "contoso-app.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-app: {{ include "app.name" . }}
+app: {{ include "contoso-app.name" . }}
 version: {{ .Values.image.tag }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
@@ -48,17 +48,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "app.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "app.name" . }}
+{{- define "contoso-app.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "contoso-app.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end -}}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "app.serviceAccountName" -}}
+{{- define "contoso-app.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "app.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "contoso-app.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}

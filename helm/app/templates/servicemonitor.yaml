@@ -2,17 +2,17 @@
 appVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "app.fullname" . }}-actuator
+  name: {{ include "contoso-app.fullname" . }}-actuator
   {{- if .Values.metrics.serviceMonitor.namespace }}
   namespace: {{ .Values.metrics.serviceMonitor.namespace }}
   {{- end }}
-  labels: {{- include "app.labels" . | nindent 4 }}
+  labels: {{- include "contoso-app.labels" . | nindent 4 }}
     {{- range $key, $value := .Values.metrics.serviceMonitor.selector }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
 spec:
   selector:
-    matchLabels: {{- include "app.selectorLabels" . | nindent 6 }}
+    matchLabels: {{- include "contoso-app.selectorLabels" . | nindent 6 }}
   endpoints:
     - port: actuatorhttp
       path: /actuator/prometheus

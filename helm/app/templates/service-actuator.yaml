@@ -2,9 +2,9 @@
 appVersion: v1
 kind: Service
 metadata:
-  name: {{ include "app.fullname" . }}-actuator
+  name: {{ include "contoso-app.fullname" . }}-actuator
   labels:
-    {{- include "app.labels" . | nindent 4 }}
+    {{- include "contoso-app.labels" . | nindent 4 }}
   {{- if or .Values.service.annotations (and .Values.metrics.enabled .Values.metrics.service.annotations) }}
   annotations:
     {{- if .Values.service.annotations }}
@@ -22,5 +22,5 @@ spec:
       port: {{ .Values.metrics.service.port }}
     {{- end }}
   selector:
-    {{- include "app.selectorLabels" . | nindent 4 }}
+    {{- include "contoso-app.selectorLabels" . | nindent 4 }}
   {{- end }}
