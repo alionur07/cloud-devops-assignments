@@ -301,11 +301,11 @@ fileConfigs:
     <label @OUTPUT>
       <match **>
         @type elasticsearch
-        host elastic-eck-es-http.alionur-demo-elk.svc.cluster.local
+        host elastic-eck-es-http.contoso-demo-elk.svc.cluster.local
         port 9200
         path ""
         user elastic
-        password K0MAb5u2u45E7siBBK3hO806
+        password 87U07q2w9DFltTx35ZyBa05u
         scheme https
         tls On
         tls.verify Off
