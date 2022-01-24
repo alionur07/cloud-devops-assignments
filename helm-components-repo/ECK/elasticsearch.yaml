@@ -1,0 +1,122 @@
+# This sets up an Elasticsearch cluster with specified number of nodes.
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: elastic-eck
+  namespace: alionur-demo-elk
+spec:
+  version: 7.10.1
+  updateStrategy:
+    changeBudget:
+      maxSurge: 3
+      maxUnavailable: 1
+  # # inject secure settings into Elasticsearch nodes from k8s secrets references
+  http:
+    service:
+      spec:
+        # expose this cluster Service with a LoadBalancer
+        type: ClusterIP
+  #   tls:
+  #     selfSignedCertificate:
+  #       # add a list of SANs into the self-signed HTTP certificate
+  #       subjectAltNames:
+  #       - ip: 192.168.1.2
+  #       - ip: 192.168.1.3
+  #       - dns: elasticsearch-sample.example.com
+  #     certificate:
+  #       # provide your own certificate
+  #       secretName: my-cert
+  # https://www.elastic.co/guide/en/cloud-on-k8s/1.2/k8s-node-configuration.html
+  nodeSets:
+  - name: master
+    count: 1
+    config:
+      # most Elasticsearch configuration parameters are possible to set, e.g: node.attr.attr_name: attr_value
+      node.master: true
+      node.data: false
+      node.ingest: false
+      # node.ml: true
+      # xpack.ml.enabled: true
+      # node.remote_cluster_client: false
+      # this allows ES to run on nodes even if their vm.max_map_count has not been increased, at a performance cost
+      node.store.allow_mmap: false
+      # Sendgrid smtp relay settings for watcher email sending capability
+    podTemplate:
+      # metadata:
+      #   labels:
+      #     # additional labels for pods
+      #     foo: bar
+      spec:
+        # this changes the kernel setting on the node to allow ES to use mmap
+        # if you uncomment this init container you will likely also want to remove the
+        # "node.store.allow_mmap: false" setting above
+        #initContainers:
+        #- name: sysctl
+        #  securityContext:
+        #    privileged: true
+        #  command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+        ####
+        ## uncomment the line below if you are using a service mesh such as linkerd2 that uses service account tokens for pod identification.
+        ## automountServiceAccountToken: true
+        containers:
+        - name: elasticsearch
+        #  # https://www.elastic.co/guide/en/cloud-on-k8s/0.9/k8s-managing-compute-resources.html
+        #  # specify resource limits and requests
+          env:
+        ## https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html
+          - name: ES_JAVA_OPTS
+            value: "-Xms512m -Xmx512m"
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: gp2
+  # https://www.elastic.co/guide/en/cloud-on-k8s/1.2/k8s-orchestration.html
+  # https://www.elastic.co/guide/en/cloud-on-k8s/1.2/k8s-node-configuration.html
+  # https://github.com/elastic/cloud-on-k8s/blob/master/config/samples/elasticsearch/elasticsearch.yaml
+  - name: data-nodes
+    count: 1
+    config:
+      node.master: false
+      node.data: true
+      node.ingest: true
+    podTemplate:
+      # metadata:
+      #   labels:
+      #     # additional labels for pods
+      #     foo: bar
+      spec:
+        # this changes the kernel setting on the node to allow ES to use mmap
+        # if you uncomment this init container you will likely also want to remove the
+        # "node.store.allow_mmap: false" setting above
+        initContainers:
+        - name: sysctl
+          securityContext:
+            privileged: true
+          command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
+        ###
+        # uncomment the line below if you are using a service mesh such as linkerd2 that uses service account tokens for pod identification.
+        # automountServiceAccountToken: true
+        containers:
+        - name: elasticsearch
+          # https://www.elastic.co/guide/en/cloud-on-k8s/0.9/k8s-managing-compute-resources.html
+          # specify resource limits and requests
+          env:
+        # https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html
+          - name: ES_JAVA_OPTS
+            value: "-Xms512m -Xmx512m" # >=4g causes OOMKilled status on ES pod on current 2-node Standard_D16_v3 cluster # [TBD: (Total limits may be over 100 percent, i.e., overcommitted.)]       
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi
+        storageClassName: gp2

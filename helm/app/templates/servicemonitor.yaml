@@ -15,7 +15,7 @@ spec:
     matchLabels: {{- include "app.selectorLabels" . | nindent 6 }}
   endpoints:
     - port: actuatorhttp
-      path: /metrics
+      path: /actuator/prometheus
       {{- if .Values.metrics.serviceMonitor.interval }}
       interval: {{ .Values.metrics.serviceMonitor.interval }}
       {{- end }}

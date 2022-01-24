@@ -1,0 +1,41 @@
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: elastic-eck
+  namespace: alionur-demo-elk
+spec:
+  version: 7.10.1
+  count: 1
+  elasticsearchRef:
+    name: "elastic-eck"
+    namespace: alionur-demo-elk
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+    service:
+      spec:
+        type: ClusterIP
+        loadBalancerIP: "" # static ip entered in values file is replaced by playbook
+  podTemplate:
+  #   metadata:
+  #     labels:
+  #       foo: bar
+    spec:
+      containers:
+      - name: kibana
+        resources:
+          requests:
+            memory: 700Mi
+            cpu: 500m
+          limits:
+            memory: 700Mi
+            cpu: 500m
+
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+# Ref. Microsoft Support Request 120080724002369 
+#  annotations:
+#    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
