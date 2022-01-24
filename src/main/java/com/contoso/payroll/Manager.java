@@ -6,7 +6,6 @@ import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -15,12 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="manager")
 
-public class Manager implements Serializable {
-
-    /**
-     * https://stackoverflow.com/questions/23049498/hibernate-could-not-deserialize-invalid-stream-header
-     */
-    private static final long serialVersionUID = -7941769011539363115L;
+public class Manager {
 
 	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
