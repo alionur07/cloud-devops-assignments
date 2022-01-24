@@ -3,7 +3,7 @@ apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
   name: elastic-eck
-  namespace: alionur-demo-elk
+  namespace: contoso-demo-elk
 spec:
   version: 7.10.1
   updateStrategy:
