@@ -11,4 +11,10 @@ public class HomeController {
 		return "index";
 	}
 
+
+	@RequestMapping(value = "/metric")
+	public String prometheus() {
+		return "test";
+	}
+
 }
