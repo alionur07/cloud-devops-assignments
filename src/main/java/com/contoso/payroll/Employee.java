@@ -1,5 +1,5 @@
 package com.contoso.payroll;
-
+import javax.persistence.Table;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -11,6 +11,7 @@ import javax.persistence.Version;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name="employee")
 public class Employee {
 
 	private @Id @GeneratedValue Long id;
@@ -21,6 +22,9 @@ public class Employee {
 	private @Version @JsonIgnore Long version;
 
 	private @ManyToOne Manager manager;
+
+	public Employee() {
+	}
 
 	public Employee(String firstName, String lastName, String description, Manager manager) { // <2>
 		this.firstName = firstName;

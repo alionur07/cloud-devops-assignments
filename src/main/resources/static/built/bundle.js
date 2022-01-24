@@ -1561,7 +1561,7 @@ var y = d * 365.25;
  * @api public
  */
 
-module.exports = function(val, options) {
+module.exports = function (val, options) {
   options = options || {};
   var type = typeof val;
   if (type === 'string' && val.length > 0) {
@@ -2188,7 +2188,7 @@ function encode(input) {
  * @api public
  */
 function querystring(query) {
-  var parser = /([^=?&]+)=?([^&]*)/g
+  var parser = /([^=?#&]+)=?([^&]*)/g
     , result = {}
     , part;
 
@@ -2243,8 +2243,8 @@ function querystringify(obj, prefix) {
         value = '';
       }
 
-      key = encodeURIComponent(key);
-      value = encodeURIComponent(value);
+      key = encode(key);
+      value = encode(value);
 
       //
       // If we failed to encode the strings, we should bail out as we don't
@@ -2275,7 +2275,7 @@ exports.parse = querystring;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v16.13.1
+/** @license React v16.14.0
  * react-dom.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -26845,7 +26845,7 @@ function injectIntoDevTools(devToolsConfig) {
     // Enables DevTools to append owner stacks to error messages in DEV mode.
     getCurrentFiber:  function () {
       return current;
-    } 
+    }
   }));
 }
 var IsSomeRendererActing$1 = ReactSharedInternals.IsSomeRendererActing;
@@ -27197,7 +27197,7 @@ implementation) {
   };
 }
 
-var ReactVersion = '16.13.1';
+var ReactVersion = '16.14.0';
 
 setAttemptUserBlockingHydration(attemptUserBlockingHydration$1);
 setAttemptContinuousHydration(attemptContinuousHydration$1);
@@ -27344,7 +27344,7 @@ if (false) {} else {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v16.13.1
+/** @license React v16.14.0
  * react.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -27364,7 +27364,7 @@ if (true) {
 var _assign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
 var checkPropTypes = __webpack_require__(/*! prop-types/checkPropTypes */ "./node_modules/prop-types/checkPropTypes.js");
 
-var ReactVersion = '16.13.1';
+var ReactVersion = '16.14.0';
 
 // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
 // nor polyfill, then a plain number is used for performance.
@@ -34052,7 +34052,10 @@ function SockJS(url, protocols, options) {
   var secure = parsedUrl.protocol === 'https:';
   // Step 2 - don't allow secure origin with an insecure protocol
   if (loc.protocol === 'https:' && !secure) {
-    throw new Error('SecurityError: An insecure SockJS connection may not be initiated from a page loaded over HTTPS');
+    // exception is 127.0.0.0/8 and ::1 urls
+    if (!urlUtils.isLoopbackAddr(parsedUrl.hostname)) {
+      throw new Error('SecurityError: An insecure SockJS connection may not be initiated from a page loaded over HTTPS');
+    }
   }
 
   // Step 3 - check port access - no need here
@@ -36854,7 +36857,7 @@ var JSON3 = __webpack_require__(/*! json3 */ "./node_modules/json3/lib/json3.js"
 
 // Some extra characters that Chrome gets wrong, and substitutes with
 // something else on the wire.
-// eslint-disable-next-line no-control-regex
+// eslint-disable-next-line no-control-regex, no-misleading-character-class
 var extraEscapable = /[\x00-\x1f\ud800-\udfff\ufffe\uffff\u0300-\u0333\u033d-\u0346\u034a-\u034c\u0350-\u0352\u0357-\u0358\u035c-\u0362\u0374\u037e\u0387\u0591-\u05af\u05c4\u0610-\u0617\u0653-\u0654\u0657-\u065b\u065d-\u065e\u06df-\u06e2\u06eb-\u06ec\u0730\u0732-\u0733\u0735-\u0736\u073a\u073d\u073f-\u0741\u0743\u0745\u0747\u07eb-\u07f1\u0951\u0958-\u095f\u09dc-\u09dd\u09df\u0a33\u0a36\u0a59-\u0a5b\u0a5e\u0b5c-\u0b5d\u0e38-\u0e39\u0f43\u0f4d\u0f52\u0f57\u0f5c\u0f69\u0f72-\u0f76\u0f78\u0f80-\u0f83\u0f93\u0f9d\u0fa2\u0fa7\u0fac\u0fb9\u1939-\u193a\u1a17\u1b6b\u1cda-\u1cdb\u1dc0-\u1dcf\u1dfc\u1dfe\u1f71\u1f73\u1f75\u1f77\u1f79\u1f7b\u1f7d\u1fbb\u1fbe\u1fc9\u1fcb\u1fd3\u1fdb\u1fe3\u1feb\u1fee-\u1fef\u1ff9\u1ffb\u1ffd\u2000-\u2001\u20d0-\u20d1\u20d4-\u20d7\u20e7-\u20e9\u2126\u212a-\u212b\u2329-\u232a\u2adc\u302b-\u302c\uaab2-\uaab3\uf900-\ufa0d\ufa10\ufa12\ufa15-\ufa1e\ufa20\ufa22\ufa25-\ufa26\ufa2a-\ufa2d\ufa30-\ufa6d\ufa70-\ufad9\ufb1d\ufb1f\ufb2a-\ufb36\ufb38-\ufb3c\ufb3e\ufb40-\ufb41\ufb43-\ufb44\ufb46-\ufb4e\ufff0-\uffff]/g
   , extraLookup;
 
@@ -37264,7 +37267,6 @@ module.exports = {
 "use strict";
 
 
-/* global crypto:true */
 var crypto = __webpack_require__(/*! crypto */ "./node_modules/sockjs-client/lib/utils/browser-crypto.js");
 
 // This string has length 32, a power of 2, so the modulus doesn't introduce a
@@ -37411,6 +37413,10 @@ module.exports = {
 , addQuery: function (url, q) {
     return url + (url.indexOf('?') === -1 ? ('?' + q) : ('&' + q));
   }
+
+, isLoopbackAddr: function (addr) {
+    return /^127\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$/i.test(addr) || /^\[::1\]$/.test(addr);
+  }
 };
 
 
@@ -37423,7 +37429,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = '1.4.0';
+module.exports = '1.5.0';
 
 
 /***/ }),
@@ -37939,8 +37945,8 @@ module.exports = '1.4.0';
 
 var required = __webpack_require__(/*! requires-port */ "./node_modules/requires-port/index.js")
   , qs = __webpack_require__(/*! querystringify */ "./node_modules/querystringify/index.js")
-  , slashes = /^[A-Za-z][A-Za-z0-9+-.]*:\/\//
-  , protocolre = /^([a-z][a-z0-9.+-]*:)?(\/\/)?([\S\s]*)/i
+  , slashes = /^[A-Za-z][A-Za-z0-9+-.]*:[\\/]+/
+  , protocolre = /^([a-z][a-z0-9.+-]*:)?([\\/]{1,})?([\S\s]*)/i
   , whitespace = '[\\x09\\x0A\\x0B\\x0C\\x0D\\x20\\xA0\\u1680\\u180E\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200A\\u202F\\u205F\\u3000\\u2028\\u2029\\uFEFF]'
   , left = new RegExp('^'+ whitespace +'+');
 
@@ -38052,12 +38058,16 @@ function lolcation(loc) {
  */
 function extractProtocol(address) {
   address = trimLeft(address);
-  var match = protocolre.exec(address);
+
+  var match = protocolre.exec(address)
+    , protocol = match[1] ? match[1].toLowerCase() : ''
+    , slashes = !!(match[2] && match[2].length >= 2)
+    , rest =  match[2] && match[2].length === 1 ? '/' + match[3] : match[3];
 
   return {
-    protocol: match[1] ? match[1].toLowerCase() : '',
-    slashes: !!match[2],
-    rest: match[3]
+    protocol: protocol,
+    slashes: slashes,
+    rest: rest
   };
 }
 
@@ -38215,6 +38225,14 @@ function Url(address, location, parser) {
     && (url.pathname !== '' || location.pathname !== '')
   ) {
     url.pathname = resolve(url.pathname, location.pathname);
+  }
+
+  //
+  // Default to a / for pathname if none exists. This normalizes the URL
+  // to always have a /
+  //
+  if (url.pathname.charAt(0) !== '/' && url.hostname) {
+    url.pathname = '/' + url.pathname;
   }
 
   //
@@ -41116,7 +41134,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
