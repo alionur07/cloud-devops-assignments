@@ -12,7 +12,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="employee")
-public class Employee {
+public class Employee implements Serializable {
+
+    /**
+     * https://stackoverflow.com/questions/23049498/hibernate-could-not-deserialize-invalid-stream-header
+     */
+    private static final long serialVersionUID = -7941769011539363185L;
 
 	private @Id @GeneratedValue Long id;
 	private String firstName;

@@ -15,7 +15,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="manager")
 
-public class Manager {
+public class Manager implements Serializable {
+
+    /**
+     * https://stackoverflow.com/questions/23049498/hibernate-could-not-deserialize-invalid-stream-header
+     */
+    private static final long serialVersionUID = -7941769011539363115L;
 
 	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
