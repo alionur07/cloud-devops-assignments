@@ -96,7 +96,7 @@ pass: prom-operator
 
 ![image](https://user-images.githubusercontent.com/33215825/151062521-a8f96c6e-93d0-485e-8d85-686d810b2d22.png)
 
-![image](https://user-images.githubusercontent.com/33215825/151062912-49f81fef-7eaf-487a-9091-2d331f4f1d01.png)
+![image](https://user-images.githubusercontent.com/33215825/151064440-241de97f-33c4-49b8-8d7a-ff78626d4738.png)
 
 ## Destroy
 After all work is done, the approval-dependent destroy pipeline can be executed.
