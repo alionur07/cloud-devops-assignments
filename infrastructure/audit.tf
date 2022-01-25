@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3bucketcloudtrail" {
-bucket        		= "s3_cloudtrail"
+bucket        		= "contoso-app-s3-cloudtrail"
  policy = <<POLICY
 {
     "Version": "2012-10-17",
