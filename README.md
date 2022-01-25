@@ -53,8 +53,10 @@ Infrastructure installation/destroy and application deployment process is done w
  
 ![image](https://user-images.githubusercontent.com/33215825/150874854-6b292440-50cf-449f-9574-9f700e055d7c.png)
 
-- Second pipeline include install monitoring, ingress template and application layer with helm. 
- ![image](https://user-images.githubusercontent.com/33215825/151038975-c63f10f5-4159-4416-83b9-9753bf832b35.png)
+- **Contoso-App-Components-CD** pipeline include install monitoring, ingress template  with helm. Includes **Comtoso-App-CD** associated with **Contoso-App-Components-CD**, fluentd, and application layer deployment.
+
+![image](https://user-images.githubusercontent.com/33215825/151060686-ecad31cf-84ce-4167-beb6-e6e3338b6729.png)
+![image](https://user-images.githubusercontent.com/33215825/151060832-782b409e-1190-4d26-b876-45a436d35694.png)
  ![image](https://user-images.githubusercontent.com/33215825/150875307-7fa0a026-4cb5-428d-9403-1b5605357946.png)
 
 **Tip** It should be checked the dns given to by the ingress controller and added to the host section of the contoso-app values yaml.
