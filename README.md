@@ -1,4 +1,4 @@
-# The aim of the project
+go# The aim of the project
 AzureDevops CI/CD pipeline allows both a react frontend and a springboot backend applications to be deployed across environments. It uses terraform for infrastructure as code and AWS for public cloud.
 
 
