@@ -49,7 +49,7 @@ Infrastructure installation/destroy and application deployment process is done w
 **Tip** Default agent is installed and used for apply and destroy processes. 
 
 **CD**
-- First pipeline include create and destroy infrastructure. The create infra gives DB and kubeconfig informations. We need to add db information to application.properties file.
+- First pipeline include create and destroy infrastructure. The create infra gives DB and kubeconfig informations. We need to add db information to application.properties file. Service account should be created to be used in ci/cd pipeline with kubeconfig.
  
 ![image](https://user-images.githubusercontent.com/33215825/150874854-6b292440-50cf-449f-9574-9f700e055d7c.png)
 
