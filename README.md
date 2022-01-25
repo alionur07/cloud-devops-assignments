@@ -37,24 +37,38 @@ VPC, RDS, EKS, SecurityGroups, Auidt components are created with terraform in in
 
 ## CI/CD
 
-In this architecture, Azure Devops has 2 different CI and CD pipelines.
+Infrastructure installation/destroy and application deployment process is done with AzureDevops CI/CD pipeline. In this architecture, 2 different CI and CD pipelines in Azure Devops. The descriptions are below
 
 **CI**
 - First pipeline compiles, tests, builds image  and publishes to a docker hub.
  ![image](https://user-images.githubusercontent.com/33215825/150874209-b23e1b22-a6df-48b9-940e-b6874496d12e.png)
+ 
 
 - Second pipeline pulishes to infrastructure files to CD step.
 ![image](https://user-images.githubusercontent.com/33215825/150874269-5a7d2254-df80-4f32-b748-6c26b395cb12.png)
+**Tip** Default agent is installed and used for apply and destroy processes. 
 
 **CD**
-- First pipeline include create and destroy infrastructure.
+- First pipeline include create and destroy infrastructure. The create infra gives DB and kubeconfig informations. We need to add db information to application.properties file.
+ 
 ![image](https://user-images.githubusercontent.com/33215825/150874854-6b292440-50cf-449f-9574-9f700e055d7c.png)
 
 - Second pipeline include install monitoring, ingress template and application layer with helm. 
- ![image](https://user-images.githubusercontent.com/33215825/150875033-4367dfb8-f5b9-41bc-b18d-dd55c20adb67.png)
+ ![image](https://user-images.githubusercontent.com/33215825/151038975-c63f10f5-4159-4416-83b9-9753bf832b35.png)
  ![image](https://user-images.githubusercontent.com/33215825/150875307-7fa0a026-4cb5-428d-9403-1b5605357946.png)
 
+**Tip** It should be checked the dns given to by the ingress controller and added to the host section of the contoso-app values yaml.
 
+![image](https://user-images.githubusercontent.com/33215825/151043574-30778c1f-c960-4752-af96-87999637f325.png)
+
+**Tip** we should wait for the Release Component (which means monitoring tools and ingress) step. After completion the release component step, we should change elastic password in fluentd values yaml and execute Release Component fluentd pipeline. 
+
+**Application login page and create employee outputs are below.**
+
+|  |    | 
+| :-------- | :------- |
+|![image](https://user-images.githubusercontent.com/33215825/151051764-8efc4bae-af70-4115-a008-d84507969b04.png) | ![image](https://user-images.githubusercontent.com/33215825/151051612-6987f8e7-7b4f-42bf-8bd0-6c3fb250256e.png) |
+| ![image](https://user-images.githubusercontent.com/33215825/151051639-fd134843-2efd-4b97-8df0-002c9f1c336b.png) | ![image](https://user-images.githubusercontent.com/33215825/151051673-6fbd0ed3-f4e3-42fc-b3b7-ba1405169bc6.png) |
 
 ----------------------------------
 
