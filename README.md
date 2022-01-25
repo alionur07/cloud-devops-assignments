@@ -67,6 +67,8 @@ Infrastructure installation/destroy and application deployment process is done w
 
 **Application login page and create employee outputs are below.**
 
+![image](https://user-images.githubusercontent.com/33215825/151062321-a3fecc5c-b659-4c5a-a502-1a03601cafa8.png)
+
 |  |    | 
 | :-------- | :------- |
 |![image](https://user-images.githubusercontent.com/33215825/151051764-8efc4bae-af70-4115-a008-d84507969b04.png) | ![image](https://user-images.githubusercontent.com/33215825/151051612-6987f8e7-7b4f-42bf-8bd0-6c3fb250256e.png) |
@@ -83,19 +85,22 @@ kubectl port-forward svc/kube-prometheus-stack-grafana 8081:80
 user: admin
 pass: prom-operator
 ```
+![image](https://user-images.githubusercontent.com/33215825/151063215-caabca93-cfc5-4189-ba6e-9fb8c087ddb9.png)
 
 
 **Logging**
 
 - Replace the elastic password in /ECK/fluentd/values.yaml with the received secret **elastic-eck-es-elastic-user**.
 
-![image](https://user-images.githubusercontent.com/33215825/150213912-d12a0642-08bf-4221-9773-2e31389dd4a8.png)
+![image](https://user-images.githubusercontent.com/33215825/151062570-16cabaf7-4540-4459-9c94-23081b3c4fa4.png)
 
-![image](https://user-images.githubusercontent.com/33215825/150213697-37dc4bc4-acf7-4cbd-82e0-1d0d65e0fdb4.png)
+![image](https://user-images.githubusercontent.com/33215825/151062521-a8f96c6e-93d0-485e-8d85-686d810b2d22.png)
 
-![image](https://user-images.githubusercontent.com/33215825/150213440-4319266b-ccb3-40bf-b7d0-6fb912b495bb.png)
+![image](https://user-images.githubusercontent.com/33215825/151062912-49f81fef-7eaf-487a-9091-2d331f4f1d01.png)
 
 ## Destroy
+After all work is done, the approval-dependent destroy pipeline can be executed.
+![image](https://user-images.githubusercontent.com/33215825/151063567-5984c9d1-1a14-4b0f-9dd5-c69f3557d209.png)
 
 ## References
 
