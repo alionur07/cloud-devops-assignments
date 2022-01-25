@@ -1,5 +1,5 @@
-resource "aws_s3_bucket" "S3BucketCloudTrail" {
-bucket        		= "s3_CloudTrail"
+resource "aws_s3_bucket" "s3bucketcloudtrail" {
+bucket        		= "s3_cloudtrail"
  policy = <<POLICY
 {
     "Version": "2012-10-17",
@@ -33,8 +33,8 @@ POLICY
 }
 
 resource "aws_cloudtrail" "cloudtrail" {
-  name                          = "EventsTrail"
-  s3_bucket_name                = "${aws_s3_bucket.S3BucketCloudTrail.id}"
+  name                          = "eventstrail"
+  s3_bucket_name                = "${aws_s3_bucket.s3bucketcloudtrail.id}"
   include_global_service_events = true
   is_multi_region_trail         = true
   enable_log_file_validation    = true
