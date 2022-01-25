@@ -305,7 +305,7 @@ fileConfigs:
         port 9200
         path ""
         user elastic
-        password 87U07q2w9DFltTx35ZyBa05u
+        password 27b9b1i9BjbMxa2E3iK895MO
         scheme https
         tls On
         tls.verify Off
