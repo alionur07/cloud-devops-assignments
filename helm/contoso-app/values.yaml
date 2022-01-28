@@ -39,7 +39,7 @@ ingress:
   enabled: true
   annotations:
   hosts:
-    - host: aa805a8d4000c4710bb13fcdb2a7da34-129505957.eu-central-1.elb.amazonaws.com
+    - host: abde67b7849634a7aab55b5db57d04fa-1514570483.eu-central-1.elb.amazonaws.com
       paths:
         - /
   tls: []
